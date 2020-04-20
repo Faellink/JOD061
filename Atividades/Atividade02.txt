@@ -1,0 +1,7 @@
+1. Realizar uma pesquisa sobre jogos multiplayer escolhendo um jogo para elaborar uma ficha técnica contendo as seguintes informações.
+
+a) Nomo do jogo
+b) Classificação: Local ou Online
+c) Arquitetura: Cliente-Servidor ou Ponto-a-Ponto
+d) Quantidade de jogadores po sessão.
+e) Problemas comuns do jogo.

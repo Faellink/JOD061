@@ -1,0 +1,77 @@
+1. Verificar o endereçamento de um host.
+
+a) Abra o Prompt de Comando no Windows.
+
+b) Execute o comando ipconfig. Quais os endereços IPs da sua estação, da máscara de rede e do gateway padrão?
+
+c) Calcule os endereços de rede IPv4 a partir do seu endereço IP da máscara de rede.
+
+d) Execute o comando ipconfig/all. Quais as informações foram apresentadas a mais?
+
+e) Execute o comando ipconfig/release *Con*. Quai foi o resultado?
+
+f) Execute o comando ipconfig/renew. Qual foi o resultado?
+
+g) Execute o comando ipconfig/displaydns. Quai foi o resultado?
+
+h) Execute o comando ipconfig/flushdns em seguida o comando ipconfig/displaydns. Quai foi o resultado?
+
+
+
+2. Testar a conectividade física entre dois hosts.
+
+a) Execute o comando ping seguido do endereço IP da sua estação, identificado no item anterior. Qual foi o resultado?
+
+b) Execute novamente o comando anterior acrescentando o parametro -t. Qual foi o resultado?
+
+c) Execute o comando ping seguido do endereço de loopback. Qual foi o resultado?
+
+d) Execute o comando ping seguido do endereço do gateway padrão. Qual foi o resultado? 
+
+e) Execute o comando ping seguido do nome da sua estação. Qual foi o resultado?
+
+f) Execute o comando ping seguido do host www.iesb.br. Qual foi o resultado?
+
+g) Execute o comando ping seguido do host intranet.iesb.br. Qual foi o resultado?
+
+
+
+3. Resolver nomes dos hosts para achar os endereços IP.
+
+a) Execute o comando nslookup seguido do endereço IP da sua estação. Qual foi o resultado?
+
+b) Execute o comando nslookup seguido do nome da sua estação. Qual foi o resultado?
+
+c) Execute o comando nslookup seguido do host www.iesb.br. Qual foi o resultado?
+
+d) Execute o comando nslookup seguido do host intranet.iesb.br. Qual foi o resultado?
+
+
+
+4. Verificar rotas entre dois hosts.
+
+a) Execute o comando tracert seguido do endereço IP da sua estação. Quantos saltos foram realizados? O destino foi alcançado? 
+
+b) Execute o comando tracert seguido do endereço do gateway padrão. Quantos saltos foram realizados? O destino foi alcançado?
+
+c) Execute o comando tracert www.iesb.br para verificar o roteamento de pacotes. Qual foi o resultado? O destino foi alcançado?
+
+d) Execute o comando tracert intranet.iesb.br. Qual foi o resultado? O destino foi alcançado?
+
+e) Execute o comando tracert helpdesk.iesb.br. Qual foi o resultado? O destino foi alcançado?
+
+
+
+5. Verificar as conexões estabelecidas pelo host.
+
+a) Execute o comando netstat. Qual foi o resultado?
+
+b) Execute o comando netstat -n. Qual foi o resultado? Notou algo diferente?
+
+c) Execute o comando netstat -na. Qual foi o resultado? Notou algo diferente?
+
+d) Execute o comando netstat -nap TCP. Qual foi o resultado? Notou algo diferente?
+
+e) Execute o comando netstat -nap UDP. Qual foi o resultado? Notou algo diferente?
+
+f) Abra a página do IESB (www.iesb.br) no navegador. Tente identificar o socket criado através do comando netstat. Qual foi o resultado?
