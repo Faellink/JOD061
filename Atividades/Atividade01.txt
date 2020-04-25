@@ -4,17 +4,34 @@ a) Abra o Prompt de Comando no Windows.
 
 b) Execute o comando ipconfig. Quais os endereços IPs da sua estação, da máscara de rede e do gateway padrão?
 
+IP: 192.168.0.6
+Máscara de rede: 255.255.255.0
+Gateway Padrão: fe80::a2ab:1bff:fe14:1807%3
+
 c) Calcule os endereços de rede IPv4 a partir do seu endereço IP da máscara de rede.
+
+192.168.0.0 - 192.168.0.255
 
 d) Execute o comando ipconfig/all. Quais as informações foram apresentadas a mais?
 
+ Nome do computador, configuração da internet, endereço MAC e DNS 
+
 e) Execute o comando ipconfig/release *Con*. Quai foi o resultado?
+
+Cortou a conexão do computador e liberou o endereço IP.
 
 f) Execute o comando ipconfig/renew. Qual foi o resultado?
 
+Reestabeleceu a conexão.
+
 g) Execute o comando ipconfig/displaydns. Quai foi o resultado?
 
+Exibiu todo o cache de resoluções DNS
+
 h) Execute o comando ipconfig/flushdns em seguida o comando ipconfig/displaydns. Quai foi o resultado?
+
+Limpou o cache DNS
+
 
 
 
@@ -22,29 +39,53 @@ h) Execute o comando ipconfig/flushdns em seguida o comando ipconfig/displaydns.
 
 a) Execute o comando ping seguido do endereço IP da sua estação, identificado no item anterior. Qual foi o resultado?
 
+Foram enviados pacotes para testar a conexão 
+
 b) Execute novamente o comando anterior acrescentando o parametro -t. Qual foi o resultado?
+
+Os pings foram contínuos 
 
 c) Execute o comando ping seguido do endereço de loopback. Qual foi o resultado?
 
+0% de perda de pacotes e 0ms de latencia 
+
 d) Execute o comando ping seguido do endereço do gateway padrão. Qual foi o resultado? 
+
+Mesmo da resposta "C"
 
 e) Execute o comando ping seguido do nome da sua estação. Qual foi o resultado?
 
+Mesmo da resposta "C"
+
 f) Execute o comando ping seguido do host www.iesb.br. Qual foi o resultado?
+
+Foi enviado pacotes para o IP 54.174.194.96
 
 g) Execute o comando ping seguido do host intranet.iesb.br. Qual foi o resultado?
 
+O host não foi encontrado
 
 
 3. Resolver nomes dos hosts para achar os endereços IP.
 
 a) Execute o comando nslookup seguido do endereço IP da sua estação. Qual foi o resultado?
 
+Domínio não encontrado  
+
 b) Execute o comando nslookup seguido do nome da sua estação. Qual foi o resultado?
+
+Domínio não encontrado  
 
 c) Execute o comando nslookup seguido do host www.iesb.br. Qual foi o resultado?
 
+Nome:    br.domain.name
+Address:  78.47.226.171
+
+Nome do domínio e endereço 
+
 d) Execute o comando nslookup seguido do host intranet.iesb.br. Qual foi o resultado?
+
+Mesmo da resposta "C"
 
 
 
@@ -52,26 +93,47 @@ d) Execute o comando nslookup seguido do host intranet.iesb.br. Qual foi o resul
 
 a) Execute o comando tracert seguido do endereço IP da sua estação. Quantos saltos foram realizados? O destino foi alcançado? 
 
+1 salto. Sim
+
 b) Execute o comando tracert seguido do endereço do gateway padrão. Quantos saltos foram realizados? O destino foi alcançado?
+
+1 salto. Sim
 
 c) Execute o comando tracert www.iesb.br para verificar o roteamento de pacotes. Qual foi o resultado? O destino foi alcançado?
 
+Foram realizados 30 saltos mas a partir do 9º o tempo limite foi esgotado e o destino não encontrado 
+
 d) Execute o comando tracert intranet.iesb.br. Qual foi o resultado? O destino foi alcançado?
+
+"Não é possivel resolver o nome do sistema de destino intranet.iesb.br"
 
 e) Execute o comando tracert helpdesk.iesb.br. Qual foi o resultado? O destino foi alcançado?
 
+Foram realizados 30 saltos mas a partir do 6º o tempo limite foi esgotado e o destino não encontrado 
 
 
 5. Verificar as conexões estabelecidas pelo host.
 
 a) Execute o comando netstat. Qual foi o resultado?
 
+Foram exibidas as conexões aativas TCP
+
 b) Execute o comando netstat -n. Qual foi o resultado? Notou algo diferente?
 
+Foram exibidas as conexões ativas TCP numericamente 
+ 
 c) Execute o comando netstat -na. Qual foi o resultado? Notou algo diferente?
+
+Tambem foram exibidas as conexões UDP
 
 d) Execute o comando netstat -nap TCP. Qual foi o resultado? Notou algo diferente?
 
+Foram exibidas apenas as conexões TCP
+
 e) Execute o comando netstat -nap UDP. Qual foi o resultado? Notou algo diferente?
 
+Foram exibidas apenas as conexões UDP
+
 f) Abra a página do IESB (www.iesb.br) no navegador. Tente identificar o socket criado através do comando netstat. Qual foi o resultado?
+
+Conexão foi estabelecida

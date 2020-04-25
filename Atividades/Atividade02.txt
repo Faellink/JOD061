@@ -1,7 +1,12 @@
 1. Realizar uma pesquisa sobre jogos multiplayer escolhendo um jogo para elaborar uma ficha técnica contendo as seguintes informações.
 
 a) Nomo do jogo
+Battlefield 3
 b) Classificação: Local ou Online
+Local e Online
 c) Arquitetura: Cliente-Servidor ou Ponto-a-Ponto
+Cliente-Servidor
 d) Quantidade de jogadores po sessão.
+32 nos consoles e 64 nos PC's
 e) Problemas comuns do jogo.
+Lags causados pela distancia do servidor, em dias mais movimentados como feriados e finais de semana a conexão fica mais instável, quantidade de jogadores e tamanho dos mapas são reduzidos nas versões de consoles e não possui servidores na América do Sul. 
