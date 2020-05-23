@@ -1,0 +1,134 @@
+1. Criar um projeto Unit.
+
+a) Abra o aplicativo UnityHub.
+
+b) Na aba Projects, crie um projeto Unity 2019 acionando a opção New.
+
+c) Prossiga atribuindo o template 3D e nome Atividade04 ao projeto.
+
+d) Verifique se a localização do projeto está indicando a pasta JOD061\Atividades. Senão estiver, atualize para o caminho correto (C:\Users\SEU-LOGIN\Documentos\JOD061\Atividades).
+
+e) Acesse a Asset Store e procure por Mirror. Importe o pacote na Unity. 
+
+f) Verifique em Build Settings->Player Settings se está atribuído .NET 4x no item de configuração Scripting Runtime Version.
+
+g) Crie uma pasta Scripts e uma pasta Prefabs dentro da pasta Assets.
+
+
+
+2. Criar uma cena para um jogo multiplayer usando Mirror.
+
+a) Crie um GameObject vazio com o nome Network Manager.
+
+b) Adicione ao objeto Network Manager os componentes Network Manager e Network Manager HUD.
+
+c) Crie um Plane para a cena do jogo. Ajuste a posição da câmera para ter uma visão do plano como em uma trasmissão de um jogo de tênis.
+
+d) Crie um GameObject vazio com o nome Player1 e outro com o nome Player2. Posicione-os sob o plano de modo que fiquem em lados opostos.
+
+e) Adicione aos objetos Player1 e Player2 o componente NetworkStartPosition.
+
+f) Crie um Cube com o nome Player.
+
+g) Adicione ao objeto Player os componentes Network Identity, Network Transform e Ridigbody. Desative a ação da gravidade e fixe a rotação do objeto nos eixos X, Y e Z.
+
+h) Adicione ao objeto Player um GameObject vazio para representar a saída do projétil. Posicione-o na frente do objeto de modo que fique a uma distância de 1 no eixo Z.
+
+i) Crie uma Sphere com o nome Projetil. Atribua na escala X, Y e X o valor 0.15.
+
+j) Adicione ao objeto Projetil os componentes NetworkIdentity e Rigidbody. Desative a ação da gravidade e ative a propriedade isTrigger no componente Sphere Collider.
+
+
+
+3. Criar a lógica do jogo multiplayer com Mirror.
+
+a) Crie na pasta Scripts um script com o nome PlayerController e outro com o nome ProjetilController. Ligue o script ao respectivo objeto.
+
+b) Abra o script PlayerController.cs no VSCode. Faça a classe PlayerController herdar a classe NetworkBehaviour e usar o pacote Mirror.
+
+c) Declare duas variáveis float na classe PlayerController. A primeira deve ser chamar moveSpeed e ser inicializada com o valor 0.1f. A segunda deve se chamar moveRotation e ser inicializada com o valor 10.
+
+d) Declare uma variável GameObject com o nome projetilPrefab e uma variável Transform projetilPosition.
+
+e) No método Start da classe PlayerController, faça o objeto alterar a cor de forma aleatória antes de ser exibido na cena.
+
+Material material = GetComponent<Renderer>().material;
+material.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+
+f) No método Update da classe PlayerController, faça o objeto rotacionar no eixo Y quando for pressionado as setas na horizontal, se movimentar no eixo Z quando for pressionado as setas na vertical e disparar um projetil quando for pressionado a tecla ESPAÇO.
+
+if (!isLocalPlayer)
+    return;
+
+transform.Translate(0, 0, Input.GetAxis("Vertical") * moveSpeed);
+transform.Rotate(0, Input.GetAxis("Horizontal") * moveRotation, 0);
+
+if (Input.GetKeyUp(KeyCode.Space))
+    CmdAtirar();
+
+g) Crie um método CmdAtirar que cria uma instância do Projetil e seja exibida no jogo.
+
+[Command]
+void CmdAtirar()
+{
+   GameObject projetil = Instantiate(bala, arma.position, transform.rotation);
+   NetworkServer.Spawn(projetil);
+}
+
+h) Abra o script ProjetilController.cs no VSCode. Faça a classe ProjetilController herdar a classe NetworkBehaviour e usar o pacote Mirror.
+
+i) No método Start da classe ProjetilController, faça o objeto ser destruido após 1s.
+
+Destroy(gameObject, 1);
+
+j) Declare uma variável float na classe ProjetilController. Ela deve se chamar moveSpeed e ser inicializada com o valor 20f.
+
+k) No método Update da classe ProjetilController, faça o objeto se movimentar no eixo Z aplicando a variável moveSpeed.
+
+void Update()
+{
+   transform.Translate(0, 0, Time.deltaTime * 20f);
+}
+
+l) Crie um método OnTriggerEnter para destruir o projetil e destruir o objeto colidido.
+
+[ServerCallback]
+private void OnTriggerEnter(Collider other)
+{
+   NetworkServer.Destroy(gameObject);
+   NetworkServer.Destroy(other.gameObject);
+}
+
+m) Na Unity, adicione o script PlayerController no objeto Player e adicione o script PlayerController no objeto Projetil.
+
+n) Arraste os objetos Player e Projetil para a pasta Prefabs. Em seguida apague os objetos da cena.
+
+o) Ligue o prefab Projetil com a propriedade projetilPrefab e ligue o objeto da saída do projetil no Player a propriedade projetilPosition.
+
+p) Ligue o prefab Player com a propriedade Player Prefab do componente Network Manager.
+
+q) Altere a propriedade Player Spawn Method para Round Robin.
+
+r) Registre o prefrab Projeti na propriedade Registered Spawnable Prefabs do componente Network Manager.
+
+
+
+4. Executar o jogo multiplayer.
+
+a) Gere uma build do jogo com a resolução 640x480 em modo janela (Windowed). Inicie o jogo no modo host.
+
+b) Execute a cena pelo Unity e inicie o jogo no modo cliente.
+
+c) Faça a movimentação do objeto tanto no cliente quanto no servidor e observe o resultado.
+
+d) Pare a execução do jogo.
+
+
+
+5. Versionar o projeto Unity no GitHub.
+
+a) No VSCode, pressione as teclas Ctrl+Shift+G para acessar o painel do Git. Em seguida, clique em Stage All.
+
+b) Efetive o commit acionando a opção Commit All. Não esqueça de por um comentário ao commit (Ex.: Criando o projeto Atividade04). 
+
+c) Envie os arquivos versionados para o git remoto acionando a opção Push. Informe usuário/senha e acione a opção Sign in.
