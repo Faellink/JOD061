@@ -1,0 +1,185 @@
+1. Criar um projeto Unit.
+
+a) Abra o aplicativo UnityHub.
+
+b) Na aba Projects, crie um projeto Unity 2019 acionando a opção New.
+
+c) Prossiga atribuindo o template 3D e nome Atividade06 ao projeto.
+
+d) Verifique se a localização do projeto está indicando a pasta JOD061\Atividades. Senão estiver, atualize para o caminho correto (C:\Users\SEU-LOGIN\Documentos\JOD061\Atividades).
+
+e) Acesse a Asset Store e procure por PUN2 - FREE. Importe o pacote na Unity. 
+
+f) Cole o AppID criado na Photon Cloud.
+
+g) Crie uma pasta Scripts e uma pasta Resources dentro da pasta Assets.
+
+
+
+2. Criar uma cena de entrada do jogo.
+
+a) Renomeie a cena SampleScene para LobbyScene.
+
+b) Altere a propriedade Clear Flags da Camera para Solid Color.
+
+c) Crie um objeto Canvas contendo um componente Text, um componente InputField e um componente Button. Ajustes de modo a ficar uma tela de login centralizada.
+
+d) Faça o componente Text exibir o texto Seu Nome, o componente InputField exibir a dica Digite um nome e o componente Button exibir o texto Conectar.
+
+e) Crie um GameObject vazio com o nome Photon Network Manager.
+
+f) Crie na pasta Scripts um script com o nome PhotonConnection. Ligue o script ao objeto Photon Network Manager.
+
+g) Abra o script PhotonConnection.cs no VSCode. Faça a classe herdar de MonoBehaviourPunCallbacks e usar os pacotes Photon.Pun, Photon.Realtime e UnityEngine.UI.
+
+h) Declare uma variável InputField input, uma variável Button button, uma variável string gameVersion, uma variável string roomName e uma variável byte maxPlayers na classe PhotonConnection.
+
+i) Implemente o método Awave alterando a propriedade AutomaticallySyncScene para true.
+
+void Awake() {
+   PhotonNetwork.AutomaticallySyncScene = true;
+}
+
+j) Implemente o método Connect para fazer a conexão com o Photon Cloud. Se o PhotonNetwork não está conectado estabeleça uma conexão chamando o método ConnectUsingSettings. Lembre de alterar as propriedades NickName e GameVersion antes de conectar. 
+
+public void Connect() {   
+   if (!PhotonNetwork.IsConnected)  {
+      input.interactable = false;
+      button.interactable = false;
+      PhotonNetwork.NickName = input.text;
+      PhotonNetwork.GameVersion = this.gameVersion;
+      PhotonNetwork.ConnectUsingSettings();
+      return;
+   }
+}
+
+k) Ainda no método Connect, se não tem sala iniciar o jogo crie uma chamando o método JoinOrCreateRoom com o valor de roomName e maxPlayers.
+
+if (PhotonNetwork.CountOfRooms == 0) {
+   button.interactable = false;
+   RoomOptions options = new RoomOptions();
+   options.MaxPlayers = this.maxPlayers;
+   PhotonNetwork.JoinOrCreateRoom(this.roomName, options, TypedLobby.Default);
+   return;
+}
+
+l) Ainda no método Connect, entre na sala do jogo roomName chamando método JoinRoom.
+
+PhotonNetwork.JoinRoom(this.roomName);
+
+m) Implemente o método OnConnectedToMaster para desabilitar o botão trocando o texto de Conectar  para Jogar.
+
+public override void OnConnectedToMaster() {
+  button.interactable = true;
+  button.GetComponentInChildren<Text>().text = "Jogar";
+}
+
+n) Implemente o método OnJoinedRoom para carregar a cena do jogo.
+
+public override void OnJoinedRoom() {
+   PhotonNetwork.LoadLevel("GameScene");
+}
+
+l) Na Unity associe o componente InputField a propriedade input e o componente Button a propriedade Button do Photon Connection. Atribua valores para as propriedades GameVersion, RoomName e MaxPlayer.
+
+m) Associe o evento On Click do componente Button ao componente Photon Network Manager para que seja executado o método PhotonConnection.Connect.
+
+
+
+3. Criar uma cena do jogo.
+
+a) Crie uma nova cena com o nome de GameScene.
+
+b) Crie um objeto Canvas contendo um componente Button. Posicione o botão no canto superior esquerdo da tela e faça ele exibir o texto Sair.
+
+c) Crie um GameObject vazio com o nome Game Manager.
+
+d) Crie na pasta Scripts um script com o nome GameController. Ligue o script ao objeto Game Manager.
+
+e) Abra o script GameController.cs no VSCode. Faça a classe herdar de MonoBehaviourPunCallbacks e usar os pacotes Photon.Pun, Photon.Realtime e UnityEngine.SceneManagement.
+
+f) Declare uma variável GameObject playerPrefab na classe GameController.
+
+g) Implemente o método Start para que verifique se o jogo está conectado ao Photon. Se não estiver carregue a cena LobbyScene. Se estiver crie uma instância do playerPrefab no jogo.
+
+void Start() {
+  if (!PhotonNetwork.IsConnected) {
+     SceneManager.LoadScene("LobbyScene");
+     return;
+  }
+
+  PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(Random.Range(-5f, 5f), 0f, 0f), Quaternion.identity, 0);
+}
+
+h) Implemente o método Disconnect para sair do jogo.
+
+public void Disconnect() {
+   PhotonNetwork.LeaveRoom();
+}
+
+i) Implemente o método OnLeftRoom para desconectar do Photon.
+
+ public override void OnLeftRoom() {
+   PhotonNetwork.Disconnect();
+}
+
+j) Implmente o método OnDisconnected para carregar a cena LobbyScene.
+
+public override void OnDisconnected(DisconnectCause cause) {
+   SceneManager.LoadScene("LobbyScene");
+}
+
+k) Na Unity associe o evento On Click do componente Button ao componente Game Manager para que seja executado o método GameController.Disconnect.
+
+l) Crie um Cube com o nome Player.
+
+m) Adicione ao objeto Player os componentes Photon View, Photon Transform View e Ridigbody. Desative a ação da gravidade e fixe a rotação do objeto nos eixos X, Y e Z.
+
+n) Crie na pasta Scripts um script com o nome PlayerController. Ligue o script ao objeto Player.
+
+o) Abra o script PlayerController.cs no VSCode e faça a classe usar o pacotes Photon.Pun.
+
+p) Declare uma variável float moveSpeed inicializada com o valor 0.2f, uma variável float moveRotation inicializada com o valor 20 e uma variável PhotonView photonView.
+
+q) Implemente o métido Awake para inicializar a variavel photonView com o componente PhotonView do Player.
+
+void Awake() {
+  photonView = GetComponent<PhotonView>();
+}
+
+r) Implemente o método Update para rotacionar o objeto no eixo Y quando for pressionado as setas na horizontal e se movimentar no eixo Z quando for pressionado as setas na vertical, se o objeto Player pertencer ao jogador.
+
+void Update()  {
+   if (!photonView.IsMine)
+      return;
+   transform.Translate(0, 0, Input.GetAxis("Vertical") * moveSpeed);
+   transform.Rotate(0, Input.GetAxis("Horizontal") * moveRotation, 0);
+}
+
+s) Na Unity, arraste o objeto Player para dentro da pasta Resources. Em seguida apague o objeto da cena.
+
+t) Associe o resource Player com a propriedade Player Prefab do Game Manager.
+
+
+
+4. Executar o jogo multiplayer.
+
+a) Adicione as cenas LobbyScene e GameScene nessa ordem para a geração da build do jogo.
+
+b) Gere uma build do jogo com a resolução 640x480 em modo janela (Windowed). Inicie o jogo com um jogador.
+
+c) Execute a cena LobbyScene e inicie o jogo como outro jogador.
+
+d) Faça a movimentação do objeto em ambos jogadores e observe o resultado.
+
+e) Pare a execução do jogo.
+
+
+
+5. Versionar o projeto Unity no GitHub.
+
+a) No VSCode, pressione as teclas Ctrl+Shift+G para acessar o painel do Git. Em seguida, clique em Stage All.
+
+b) Efetive o commit acionando a opção Commit All. Não esqueça de por um comentário ao commit (Ex.: Criando o projeto Atividade06). 
+
+c) Envie os arquivos versionados para o git remoto acionando a opção Push. Informe usuário/senha e acione a opção Sign in.

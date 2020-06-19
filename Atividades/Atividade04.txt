@@ -34,7 +34,7 @@ g) Adicione ao objeto Player os componentes Network Identity, Network Transform 
 
 h) Adicione ao objeto Player um GameObject vazio para representar a saída do projétil. Posicione-o na frente do objeto de modo que fique a uma distância de 1 no eixo Z.
 
-i) Crie uma Sphere com o nome Projetil. Atribua na escala X, Y e X o valor 0.15.
+i) Crie uma Sphere com o nome Projetil. Atribua na escala X, Y e Z o valor 0.15.
 
 j) Adicione ao objeto Projetil os componentes NetworkIdentity e Rigidbody. Desative a ação da gravidade e ative a propriedade isTrigger no componente Sphere Collider.
 
@@ -48,7 +48,7 @@ b) Abra o script PlayerController.cs no VSCode. Faça a classe PlayerController 
 
 c) Declare duas variáveis float na classe PlayerController. A primeira deve ser chamar moveSpeed e ser inicializada com o valor 0.1f. A segunda deve se chamar moveRotation e ser inicializada com o valor 10.
 
-d) Declare uma variável GameObject com o nome projetilPrefab e uma variável Transform projetilPosition.
+d) Declare uma variável GameObject com o nome projetilPrefab e uma variável Transform arma.
 
 e) No método Start da classe PlayerController, faça o objeto alterar a cor de forma aleatória antes de ser exibido na cena.
 
@@ -103,7 +103,7 @@ m) Na Unity, adicione o script PlayerController no objeto Player e adicione o sc
 
 n) Arraste os objetos Player e Projetil para a pasta Prefabs. Em seguida apague os objetos da cena.
 
-o) Ligue o prefab Projetil com a propriedade projetilPrefab e ligue o objeto da saída do projetil no Player a propriedade projetilPosition.
+o) Ligue o prefab Projetil com a propriedade projetilPrefab e ligue o objeto da saída do projetil no Player a propriedade arma.
 
 p) Ligue o prefab Player com a propriedade Player Prefab do componente Network Manager.
 
