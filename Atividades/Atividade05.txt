@@ -65,7 +65,12 @@ public override void OnDisconnected(Photon.Realtime.DisconnectCause cause) {
 
 j) Execute a cena na Unity. Qual foi o resultado na aba Console?
 
+Conectando ao servidor...
+Conectado!
+
 k) Interrompa a cena na Unity. Qual foi o resultado na aba Console?
+
+"Desconectado!"
 
 
 
